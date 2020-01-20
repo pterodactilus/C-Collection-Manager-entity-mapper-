@@ -13,6 +13,7 @@ The library allows you to implement fairly complex data structures in your appli
 
 The Collection Manager and demo application is free for download and is distributed under the terms of the MIT licence terms. 
 Don't forget to thank the developer using the Donate link at this page http://prozarium.ru/TextDetails.aspx?TextID=1410
+
 Thank you
 
 (c)2010-2020 p.v., aka Eugene Trifonov, 
