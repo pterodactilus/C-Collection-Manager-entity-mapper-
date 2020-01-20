@@ -11,13 +11,12 @@ All client code is reduced to writing the simplest one string calls to the mappe
 
 The library allows you to implement fairly complex data structures in your application, without bothering about difficult and tedious questions of data acquisition and conversion issue, allowing you to pay more attention to the develop of business logic and UI. There no need to worry about migrations, context, etc. At the same time, ORM completely relieves the developer from direct communicating with ADO - datasets, tables,  rows, and other data aceess components. No need to open or track connections, create commands or operate with adapters. Because ORM works at a higher level of data abstraction with collections of entities and their instances. At the same time you will be completely protected from memory leaks. At the same time you are free for create any complexity application logic at the primary data level. 
 
-The Collection Manager and demo application is free for download and is distributed under the terms of the MIT license. For detais see the Licence Agreement. Don't forget to thanks the developer using the Donate link at this page http://prozarium.ru/TextDetails.aspx?TextID=1410 (CCM blog, Help info, comments, etc.)
+CCM (C# Collections Mapper) is free for download and is distributed under the terms of the MIT license. For detais see the Licence Agreement. Don't forget to thanks to developer using the Donate link at this page http://prozarium.ru/TextDetails.aspx?TextID=1410 (CCM blog, Help info, comments, etc.)
 
 (c)2010-2020 Eugene Trifonov, 
 aka p.v.(pterodactilus vulgaris)
 Saint Petersburg, Russia
 mailto: pterodactilus@rambler.ru
 
-I'm looking for remote work on C#, ASP.Net, MS SQL
-CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
+I'm looking for remote work on C#, ASP.Net, MS SQL. CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
 Offers can be sent via Skype to "prozarium" or Telegram to "@EugeneTrifonov"
