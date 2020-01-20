@@ -1,11 +1,8 @@
 General description and principles
 
 As an example, here are all the necessary to work with collection client application classes using the library CollectionManager. The library is universal and operates with any types of collections. Entity classes developer manually creates in the application. They allows him to get data from SQL server through stored procedures. This data form instances of the entity class and form from these instances the collection.
-
 In addition, the library has mechanisms for extracting a specific an instance of a class from the collection, modifying it, and inserting it back into the collection to the same place (sort by ID). The library contains methods for adding and removing instances of the collection (Not records in the tables!!! For this purposes used "ExecuteNonQuery" method of sqlManager class. Developer should independently take care of maintaining the relevance of the tables. ORM only provides a convenient tool for this.
-
 "Book" is an example of a prototype class with instances of which an sample collections works.
-
 This is the class describing the mapping of the database table structure to entity. Sets of fields in a class can arbitrarily relate to the fields of the tables generating the entity.
 
 How to use this?
@@ -79,10 +76,10 @@ public ICollection<Book> GetBooks(string connAlias, Guid creatorID)
 }
 
 Pay attention to the last boolean "true" parameter in the GetCollection method. His presence obliges to transfer to the entity class constructor a data reader. Overloaded constructor recieve entity Id only. See entity Book class example.
-
 If this boolean is set to true the @ReturnAtOnce parameter is passed to the SQL procedure, then the procedure returns the entire record set in one pass with all the entity fields. If this parameter is omitted or set to false, then by default the procedure is called two times - first time to get all the list of entities IDs, and then, when creating every instance of the class is called again, already with the existing ID parameter to get all the fields of the instance with the given ID. It is usefull for calculate comlex entity fields with secondary queries.
 
 Example of an element retrieval method from collection (Book instance)
+
 If instance with this Id not present in collection, it will be added to collection from db table
 
 
@@ -236,7 +233,6 @@ ELSE
 RETURN
 
 We may build any amount of collections with same prototype class where the base class being used is the same. In the examples below, two different collections are used. It is important to note that instances of one collection we get from another. With such approach we not create new instances from database and do not pull the same data from SQL server for several times.
-
 For example, we have a store of books and it is divided into several shelfs. In one shelf is books for sale, and in other shelfs books for reading. If you put a book in the wrong shelf (e.g. in BooksList collection), someone will be surprised with pleasure, and someone will loss it. In the store there will remain the changeless amount of books and it does not change (we operate only with links to instances).
 
 It is important that in all shelfs there are only books and between them are no principal different. My books I take from the shelf for reading. On this shelf books fall from the store (heaps).
@@ -316,14 +312,13 @@ public static void CopySomethings()
 Initial filling of collections with elements
 
 If we omit the last optional bool parameter in the mapper.GetCollection call, mapper get instance from database by two passes. At first the stored procedure pulls out a list of entity IDs by which instances are searched for in collection or created new ones. In this case, the method is universal for all collections, including the Heap.
-
 After receiving the id, the CollectionManager looking for the instance with this Id in collection. If the instance is already in the collection, mapper returns the collections instance of this entity type with this Id. And if he is not exists there called entity's constructor and the new item is added to the collection from database.
-
 If in the database the data source has changed (for example, the table has been updated), you should to update the corresponding instance of the collection. When the entity instance updates it removed from the collection, re-created and inserted there, where he was (sorting by ID).In UpdateCollectionItem method if no such item were found in the collection, it will not be added (!)
-
 For delete, create and update records in the database tables use SqlManager class.
 
-Examples of using SqlManager library. Calling stored procedure for execute (e.g. add new Book to database). You can call it by using
+Examples of using SqlManager library. 
+
+Calling stored procedure for execute (e.g. add new Book to database). You can call it by using 
 
 sqlManager.ExecuteNonQuery(dbAlias, procName, parameters, out errMsg);
 
