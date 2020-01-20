@@ -1,6 +1,6 @@
 Description and help http://prozarium.ru/TextDetails.aspx?TextID=1410
 	
-C# Collection Manager (entity mapper) is a working version of the handwritten mini ORM, working with the database and .Net collections. Productivity is quite high, resource consumption is minimal. This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM dll using.
+CCM (C# Colletion Mapper) is a working version of the handwritten mini ORM (entity mapper), working with the database and .Net collections. Productivity is quite high, resource consumption is minimal. This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM dll using.
 
 Introduction
 
