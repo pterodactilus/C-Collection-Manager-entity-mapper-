@@ -18,5 +18,8 @@ aka p.v.(pterodactilus vulgaris)
 Saint Petersburg, Russia
 mailto: pterodactilus@rambler.ru
 
-I'm looking for remote work on C#, ASP.Net, MS SQL. CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
-Offers can be sent via Skype to "prozarium" or Telegram to "@EugeneTrifonov"
+I'm looking for remote work on C#, ASP.Net, MS SQL. 
+CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
+Feel free to make an offer that is hard to refuse 
+Skype prozarium 
+Telegram @EugeneTrifonov
