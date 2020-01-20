@@ -2,9 +2,7 @@ See description and help here http://prozarium.ru/TextDetails.aspx?TextID=1410
 	
 C# Collection Manager (entity mapper) is a working version of the handwritten mini ORM, working with the database and collections. Productivity is quite high, resource consumption is minimal. This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM dll using.
 
-//**********************************************************************
-// Introduction
-//**********************************************************************
+Introduction
 
 Data is stored on the SQL server and when a large number of simultaneously connected users access it this creates a serious load on the database server. In addition, often database queries fetch the same data, which is not good in terms of server and applications load. One of ways to optimize the database in ligament with client application is to reduce traffic and to store data already received from the server on the client or in the middle application tier. Or to store already received data on the application server, especially when the database server and client applications are distributed across the network. For this purpose, the collections stored in the Session or at the application level are the best suited.
 
