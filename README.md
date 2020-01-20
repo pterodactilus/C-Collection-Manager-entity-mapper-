@@ -17,9 +17,11 @@ The library allows you to implement fairly complex data structures in your appli
 
 The Collection Manager and demo application is free for download and is distributed under the terms of the Donation Ware. Don't forget to thank the developer using the Donate link at this page.
 
-(c)2010-2020 p.v., aka Eugene Trifonov, 
+(c)2010-2020 Eugene Trifonov, 
+aka p.v.(pterodactilus vulgaris)
 Saint Petersburg, Russia
 mailto: pterodactilus@rambler.ru
 
-Looking for remote work on C#. CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
+I'm looking for remote work on C#, ASP.Net, MS SQL
+CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
 Offers can be sent via Skype to "prozarium" or Telegram to "@EugeneTrifonov"
