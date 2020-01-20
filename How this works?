@@ -382,7 +382,3 @@ inputParameters["@Published"] = true;
 object[] result = sqlManager.SQLExecuteScalar("CmsDb", "GetAuthors", inputParameters, outputParameters);
 
 Thats all for today. The approach described here is successfully used on the web sites e.g. prozarium.ru, probki.net, in the PGMania program and in a wide number of other commercial projects and showed the best performance results.
-
-How to say thanks?
-
-The application is free to download and is distributed under the terms of the Donation Ware. Don't forget to thank the developer using the Donate link at this page.
