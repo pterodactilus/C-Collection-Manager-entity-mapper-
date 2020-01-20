@@ -13,7 +13,7 @@ All client code is reduced to writing the simplest one string calls to the mappe
 
 The library allows you to implement fairly complex data structures in your application, without bothering about difficult and tedious questions of data acquisition and conversion issue, allowing you to pay more attention to the develop of business logic and UI. There no need to worry about migrations, context, etc. At the same time, ORM completely relieves the developer from direct communicating with ADO - datasets, tables,  rows, and other data aceess components. No need to open or track connections, create commands or operate with adapters. Because ORM works at a higher level of data abstraction with collections of entities and their instances. At the same time you will be completely protected from memory leaks. At the same time you are free for create any complexity application logic at the primary data level. 
 
-The Collection Manager and demo application is free for download and is distributed under the terms of the Donation Ware. Don't forget to thank the developer using the Donate link at this page.
+The Collection Manager and demo application is free for download and is distributed under the terms of the MIT license. Don't forget to thank the developer using the Donate link at this page http://prozarium.ru/Admin/TextDetails.aspx?TextID=1410
 
 (c)2010-2020 Eugene Trifonov, 
 aka p.v.(pterodactilus vulgaris)
