@@ -1,6 +1,10 @@
-C# Collection Manager (entity mapper) is a working version of the handwritten mini ORM, working with the database and collections. Productivity is quite high, resource consumption is minimal. This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM dll using.
+Description and help http://prozarium.ru/TextDetails.aspx?TextID=1410
+	
+C# Collection Manager (entity mapper) is a working version of the handwritten mini ORM, working with the database and C # collections. Productivity 	is quite high, resource consumption is minimal. This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM dll using.
 
-Introduction
+//**********************************************************************
+// Introduction
+//**********************************************************************
 
 Data is stored on the SQL server and when a large number of simultaneously connected users access it this creates a serious load on the database server. In addition, often database queries fetch the same data, which is not good in terms of server and applications load. One of ways to optimize the database in ligament with client application is to reduce traffic and to store data already received from the server on the client or in the middle application tier. Or to store already received data on the application server, especially when the database server and client applications are distributed across the network. For this purpose, the collections stored in the Session or at the application level are the best suited.
 
@@ -11,11 +15,11 @@ All client code is reduced to writing the simplest one string calls to the mappe
 
 The library allows you to implement fairly complex data structures in your application, without bothering about difficult and tedious questions of data acquisition and conversion issue, allowing you to pay more attention to the develop of business logic and UI. There no need to worry about migrations, context, etc. At the same time, ORM completely relieves the developer from direct communicating with ADO - datasets, tables,  rows, and other data aceess components. No need to open or track connections, create commands or operate with adapters. Because ORM works at a higher level of data abstraction with collections of entities and their instances. At the same time you will be completely protected from memory leaks. At the same time you are free for create any complexity application logic at the primary data level. 
 
-The Collection Manager and demo application is free for download and is distributed under the terms of the MIT licence terms. 
-Don't forget to thank the developer using the Donate link at this page http://prozarium.ru/TextDetails.aspx?TextID=1410
-
-Thank you
+The Collection Manager and demo application is free for download and is distributed under the terms of the Donation Ware. Don't forget to thank the developer using the Donate link at this page.
 
 (c)2010-2020 p.v., aka Eugene Trifonov, 
 Saint Petersburg, Russia
 mailto: pterodactilus@rambler.ru
+
+Looking for remote work on C#. CV is here https://spb.hh.ru/resume/78cedb6fff01b150c00039ed1f434c364b7257
+Offers can be sent via Skype to "prozarium" or Telegram to "@EugeneTrifonov"
