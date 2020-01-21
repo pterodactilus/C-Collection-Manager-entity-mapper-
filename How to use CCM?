@@ -1,6 +1,6 @@
-How to use this?
+//How to use this?
 
-First you should add to your code necessary namespaces. 
+//First you should add to your code necessary namespaces. 
 
 using System; 
 using System.Collections; 
@@ -9,28 +9,28 @@ using CS_Collections_Mapper;
 
 Define mapper and sqlManager
 
-Storing instances of mapper and SqlManager in singletone Repository class. 
+//Storing instances of mapper and SqlManager in singletone Repository class. 
 
 ICollectionManager mapper = Repository.Mapper;
 ISQLManager sqlManager = Repository.TsqlManager;
 
-How to connect to DB 
+//How to connect to DB 
 
-ISQLManager interface has several methods to establish the connection to data base. You should to create connection before you make any operations with mapper or sqlManager. Here they are: 
+//ISQLManager interface has several methods to establish the connection to data base. You should to create connection before you make any operations with mapper or sqlManager. Here they are: 
 
-Add connections methods 
+//Add connections methods 
 
 string GetConfigPath(string pathKey, string configName, string subFolder) 
 void AddConnection(string connAlias, string connectionString) 
 void AddDefaultConfigConnections() 
 void AddCustomConfigConnections(string configPath) 
 
-Get connections methods 
+//Get connections methods 
 
 string GetConnectionStringByAlias(string connAlias) 
 Dictionary GetConnections() 
 
-Remove connections methods 
+//Remove connections methods 
 
 void RemoveConnection(string connAlias) 
 void RemoveConnections() 
