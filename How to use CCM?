@@ -2,17 +2,25 @@ How to use this?
 
 First you should add to your code necessary namespaces. 
 
-using System; 
-using System.Collections; 
-using System.Collections.Generic; 
-using CS_Collections_Mapper; 
+using ... 
+using CS_Collections_Mapper;
 
-Define mapper and sqlManager
 
-Storing instances of mapper and SqlManager in singletone Repository class. 
+Define mapper and sqlManager in client class
 
 ICollectionManager mapper = Repository.Mapper;
 ISQLManager sqlManager = Repository.TsqlManager;
+
+ 
+
+Store Mapper and TsqlManager in application level
+
+public sealed class Repository : Singleton<Repository>
+{
+    public static ICollectionManager Mapper = new CollectionManager();
+    public static ISQLManager TsqlManager = new SQLManager();
+}
+
 
 How to connect to DB 
 
@@ -69,9 +77,13 @@ public ICollection<Book> GetBooks(string connAlias, Guid creatorID)
     ); 
 }
 
-Pay attention to the last boolean "true" parameter in the GetCollection method. His presence obliges to transfer to the entity class constructor a data reader. Overloaded constructor recieve entity Id only. See entity Book class example.
+Initial filling of collections with elements
 
-If this boolean is set to true the @ReturnAtOnce parameter is passed to the SQL procedure, then the procedure returns the entire record set in one pass with all the entity fields. If this parameter is omitted or set to false, then by default the procedure is called two times - first time to get all the list of entities IDs, and then, when creating every instance of the class is called again, already with the existing ID parameter to get all the fields of the instance with the given ID. It is usefull for calculate comlex entity fields with secondary queries. 
+Pay attention to the last boolean "true" parameter in the GetCollection method. If we omit the last optional bool parameter in the mapper.GetCollection call, the mapper will get instances from database by two passes. At first the stored procedure pulls out a list of entity IDs by which instances are searched for in database table. 
+
+After receiving the list of id values, the mapper looks for instances with their Id in the heap collection. If the instancea are already in the heap collection, mapper returns the instance of searched entity type with this Id to destination collection. And if mapper is not found instance in the heap it take it from the database. There will be called entity's constructor and the new item will be added to the heap and to destination collection from database. See entity Book class example for details
+
+If this last boolean parameter in the GetCollection method is set to true the @ReturnAtOnce parameter will be passed to the SQL procedure, then the procedure returns the entire record set in one pass with all the entity fields. 
 
 Example of an element retrieval method from collection (Book instance)
 If instance with this Id not present in collection, it will be added to collection from db table 
@@ -136,11 +148,14 @@ public class Book : Sortable
     public DateTime DateCreation { get; set; } 
     public string Caption { get; set; } 
     public Guid CreatorID { get; set; } 
-    public bool Published { get; set; } 
+    public bool Published { get; set; }
 
-    public Book() 
-    { 
-    } 
+
+    public Book(..) 
+    {
+      ... //create Book manually
+    } 
+
     
     public Book(IDataReader reader, int sortID) : base(reader, sortID) 
     { 
@@ -229,101 +244,68 @@ ELSE
     end 
 RETURN
 
-We may build any amount of collections with the same prototype entity class where the base class being used is the same. In the examples below, two different collections are used. It is important to note that instances of one collection we get from another. With such approach we did not store the same instances in memory and did not pull the same data from SQL server for several times.
+We may build any amount of collections with the same prototype entity class where the base class being used is the same. In the examples below, two different collections are used. It is important to note that instances of one collection we get from another. With such approach we did not store the same instances in memory twice and did not pull the same data from SQL server for several times.
 
 For example, we have a store of books and it is divided into several shelfs. In one shelf is books for sale, and in other shelfs books for reading. If you put a book in the wrong shelf (e.g. in BooksList collection), someone will be surprised with pleasure, and someone will loss it. In the store there will remain the changeless amount of books and it does not change (we operate only with links to instances).
 
-It is important that in all shelfs there are only books and between them are no principal different. My books I take from the shelf for reading. On this shelf books fall from the store (heaps). 
+It is important that in all shelfs there are only books and between them are no principal different. My books I take from the shelf for reading. On this shelf books fall from the store (heaps).
+
 If I have read all my books, I can go to the store (to the heap) and take another books for reading, or I can order the new ones if they not exists in the store (create new instanses in collection).
 
-Declare collections classes
+Declaring entity collections 
 
-UserBooksList collection stored in the heap Repository.AllBooks 
+By default collections stored at Application level if they will be accessed from different places of application and reused. But you are free to define them anywhere. 
 
-public class UserBooks : BooksHeap 
-{ 
-    public UserBooks() 
-    {
+UserBooks collection get it instanses from the heap Repository.AllBooks
 
-        // indicates that UserBooks instances are stored in the heap
-        heapCollection = Repository.AllBooks; 
-    } 
-}
+public static ICollection<Book> UserBooks = new UserBooks() as ICollection<Book>;
 
-Here it should be clarified that there is an overrided method in the CollectionManager that uses a constructor with two IDs. This is may be necessary in case if the procedure on the server collects records from different data sources. For example, the SecondID parameter defines the table, the data from which merged into the resulting query. Then an instance in the collection is searched by two id (in fact, this is a two-dimensional array with two keys)
+AllBooks is the heap from which the rest of child collections are assembled with the Book entity prototype
 
-The heap collection class (prototype) 
+The heap collection declaration
 
 public class BooksHeap : BaseCollection<Book> 
 { 
-    // heap declaration class 
     public BooksHeap() 
     { 
-        // Specify the collection field ID
-        idFieldName = "BookID"; 
+        // Specify the collection key field (required!)
+        idFieldName = "BookID";
+
+        // secondaryID definition (optional)
+        idFieldName2 = "Position";
     } 
 }
 
-Storing collections in Repository
+The child collection declaration
 
 
-// AllBooks is the heap from which the UserBooks collection is compiled
-private static ICollection<Book>_AllBooks; 
-public static ICollection<Book>AllBooks 
-{ 
-    get 
-    { 
-        return _AllBooks ?? (_AllBooks = new BooksHeap() as ICollection<Book>); 
-    } 
-    set 
-    { 
-        _AllBooks = value; 
-    } 
-} 
-
-private static ICollection<Book>_UserBooks; 
-public static ICollection<Book>UserBooks 
-{ 
-    get 
-    { 
-        return _UserBooks ?? (_UserBooks = new UserBooks() as ICollection<Book>); 
-    } 
-    set 
-    { 
-        _UserBooks = value; 
-    } 
+public class UserBooks : BooksHeap
+{
+    public UserBooks()
+   {
+       // indicate that instances are stored on the heap
+       heapCollection = Repository.AllBooks;
+   }
 }
 
-Example of how to build a two-dimensional collection.
+Storing collections for reuse
 
-Here Somethings2 is a collection in which we search desired instance 
+public static ICollection<Book> AllBooks = new BooksHeap() as ICollection<Book>;
 
-public static void CopySomethings() 
-{ 
-    foreach (Something something in Somethings) 
-    { 
-        int somethingID = something.SomethingID; 
-        int ID2 = something.SecondID; 
-        Something something2 = (Something)CollectionManager.GetCollectionItem( 
-        Somethings2, somethingID, ID2); 
-    } 
-}
+The relaition parent/child between collections is defined in this maner
 
-Initial filling of collections with elements
+ heapCollection = Repository.AllBooks;
 
-If we omit the last optional bool parameter in the mapper.GetCollection call, mapper get instance from database by two passes. At first the stored procedure pulls out a list of entity IDs by which instances are searched for in collection or created new ones. In this case, the method is universal for all collections, including the Heap. 
+ 
 
-After receiving the id, the CollectionManager looking for the instance with this Id in collection. If the instance is already in the collection, mapper returns the collections instance of this entity type with this Id. And if he is not exists there called entity's constructor and the new item is added to the collection from database.
 
-If in the database the data source has changed (for example, the table has been updated), you should to update the corresponding instance of the collection. When the entity instance updates it removed from the collection, re-created and inserted there, where he was (sorting by ID).In UpdateCollectionItem method if no such item were found in the collection, it will not be added (!)
+Examples of using SqlManager library.
 
-For delete, create and update records in the database tables use SqlManager class.
-
-Examples of using SqlManager library. Calling stored procedure for execute (e.g. add new Book to database). You can call it by using 
+For delete, create and update records in the database tables use SQLManager class. Calling stored procedure for execute (e.g. add new Book to database)
 
 sqlManager.ExecuteNonQuery(dbAlias, procName, parameters, out errMsg); 
 
-or with retrieving some results from procedure
+or with retrieving some results from procedure as object[]
 
 sqlManager.SQLExecuteScalar(dbAlias, procName, parameters)
 
@@ -381,5 +363,3 @@ outputParameters["@someStringResult"] = outputMessage;
 Hashtable inputParameters = new Hashtable(); 
 inputParameters["@Published"] = true; 
 object[] result = sqlManager.SQLExecuteScalar("CmsDb", "GetAuthors", inputParameters, outputParameters);
-
-Thats all for today. The approach described here is successfully used on the web sites prozarium.ru, in the PGMania program and other projects and showed the best performance results.
