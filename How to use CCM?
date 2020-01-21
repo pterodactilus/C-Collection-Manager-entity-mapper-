@@ -1,38 +1,3 @@
-You can help the project 'CCM (C# Collections Mapper)' to rise by providing possible financial assistance. Thanks! 
-
-
-Download demo solution here
-
-https://sourceforge.net/projects/collectionmanager/files/
-
-https://github.com/pterodactilus/C-Collection-Manager-entity-mapper-
-
-
-CCM (C# Collections Mapper) is a working version of the handwritten mini ORM, working with the database and .Net collections. Productivity is quite high, resource consumption is minimal.
-This ORM works directly with SQL Server stored procedures. The code is accompanied by descriptions and example .Net Console project showing the technique of ORM using.
-
-Introduction
-
-Data is stored on the SQL server and when a large number of simultaneously connected users access it this creates a serious load on the database server. In addition, often database queries fetch the same data, which is not good in terms of server and applications load. One of ways to optimize the database in ligament with client application is to reduce traffic and to store data already received from the server on the client or in the middle application tier. Or to store already received data on the application server, especially when the database server and client applications are distributed across the network. For this purpose, the collections stored in the Session or at the application level are the best suited. 
-
-Below is a solution for the data management layer in the combination of MS Sql Server with a C # application, suitable for .Net. In whole this is a loosely bound entity mapper projecting the application's business logics onto database tables using T-SQL stored procedures. In this realization of ORM the tables, procedures, and entity constructors are written by hand. They are not generated automatically by a mapper. 
-
-At the same time, the entity code and stored procedures can be minimased and simplified and fully control by the developer. As well as a process of data obtaining. All client code is reduced to writing the simplest one string calls to the mappers methods and to creating the simplest constructors for entities by template.
-
-CCM allows you to implement fairly complex data structures in your application, without bothering about difficult and tedious questions of data acquisition and conversion issue, allowing you to pay more attention to the develop of business logic and UI. There no need to worry about migrations, context, etc. At the same time, ORM completely relieves the developer from direct communicating with ADO - datasets, tables, rows, and other data aceess component, to track connections, commands or operate with adapters because ORM works at a higher level of data abstraction. At the same time you will be completely protected from memory leaks and free to create complexity application logic at the primary data level. 
-
-At the same time you are free for create any complexity application logic at the primary data level. 
-
-General description and principles
-
-As an example, here are all the necessary to work with collection client application classes using the library CollectionManager. The library is universal and operates with any types of collections. Entity classes developer manually creates in the application. They allows him to get data from SQL server through stored procedures. This data form instances of the entity class and form from these instances the collection. 
-
-In addition, the library has mechanisms for extracting a specific an instance of a class from the collection, modifying it, and inserting it back into the collection to the same place (sort by ID). The library contains methods for adding and removing instances of the collection (Not records in the tables!!! For this purposes used "ExecuteNonQuery" method of sqlManager class. Developer should independently take care of maintaining the relevance of the tables. ORM only provides a convenient tool for this.
-
-"Book" is an example of a prototype class with instances of which an sample collections works.
-
-This is the class describing the mapping of the database table structure to entity. Sets of fields in a class can arbitrarily relate to the fields of the tables generating the entity. 
-
 How to use this?
 
 First you should add to your code necessary namespaces. 
@@ -417,18 +382,4 @@ Hashtable inputParameters = new Hashtable();
 inputParameters["@Published"] = true; 
 object[] result = sqlManager.SQLExecuteScalar("CmsDb", "GetAuthors", inputParameters, outputParameters);
 
-Thats all for today. The approach described here is successfully used on the web sites e.g. prozarium.ru, in the PGMania program and other projects and showed the best performance results.
-
-How to say thanks? 
-
-The application is free to download and is distributed under the terms of the MIT license. Don't forget to thank the developer using the Donate link at this pagehttp://prozarium.ru/TextDetails.aspx?TextID=1410
-
-Please read License Agreement for details of using CCM in your projects.
-
-
-(c)2010-2020 Eugene Trifonov, 
-aka p.v.(pterodactilus vulgaris)
-Saint Petersburg, Russia
-mailto: pterodactilus@rambler.ru
-
-I'm looking for remote work on C#, ASP.Net, MS SQL. My CV is here. Offers can be sent via Skype to "prozarium" or Telegram to "@EugeneTrifonov"
+Thats all for today. The approach described here is successfully used on the web sites prozarium.ru, in the PGMania program and other projects and showed the best performance results.
